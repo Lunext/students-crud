@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{student.add.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-6">
+                <h1 th:text="#{student.add.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/students}" th:text="#{student.add.back}" class="btn btn-secondary" />
+                </div>
+                <div>
+                    <a th:href="@{/students/importData/excel}" th:text="#{student.importData.automatically}" class="btn btn-success" />
+                </div>
+            </div>
+            <div th:replace="fragments/forms::globalErrors('student')" />
+            <form th:action="${#httpServletRequest.requestURI}" method="post">
+                <div th:replace="fragments/forms::inputRow(object='student', field='name')" id="name" />
+                <div th:replace="fragments/forms::inputRow(object='student', field='lastname')"  id="lastname"/>
+                <div th:replace="fragments/forms::inputRow(object='student', field='age')" id="age" />
+                <div th:replace="fragments/forms::inputRow(object='student', field='major')" id="major" />
+                <div th:replace="fragments/forms::inputRow(object='student', field='matricula')" id="matricula" />
+                <div th:replace="fragments/forms::inputRow(object='student', field='quater')" id="quater"/>
+                <div th:replace="fragments/forms::inputRow(object='student', field='email')" i />
+                <input type="submit" th:value="#{student.add.headline}" class="btn btn-primary mt-4" id="save"/>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{student.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{student.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/students/add}" th:text="#{student.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+                <div>
+                    <a th:href="@{students/export/excel}" th:text="#{student.export.excel}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${students.empty}" th:text="#{student.list.empty}" />
+            <div th:if="${!students.empty}" class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th th:text="#{student.id.label}" scope="col" />
+                            <th th:text="#{student.name.label}" scope="col" />
+                            <th th:text="#{student.lastname.label}" scope="col" />
+                            <th th:text="#{student.age.label}" scope="col" />
+                            <th th:text="#{student.major.label}" scope="col" />
+                            <th th:text="#{student.matricula.label}" scope="col" />
+                            <th th:text="#{student.quater.label}" scope="col" />
+                            <th th:text="#{student.email.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="student : ${students}">
+                            <td th:text="${student.id}" />
+                            <td th:text="${student.name}" />
+                            <td th:text="${student.lastname}" />
+                            <td th:text="${student.age}" />
+                            <td th:text="${student.major}" />
+                            <td th:text="${student.matricula}" />
+                            <td th:text="${student.quater}" />
+                            <td th:text="${student.email}" />
+                            <td>
+                                <form th:action="@{/students/delete/{id}(id=${student.id})}" th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm float-end">
+                                    <a th:href="@{/students/edit/{id}(id=${student.id})}" th:text="#{student.list.edit}" class="btn btn-sm btn-info" />
+                                    <button th:text="#{student.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
